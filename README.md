@@ -131,3 +131,5 @@ look this example
 	...
 
 ```
+
+Licence: MIT

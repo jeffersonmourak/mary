@@ -1,5 +1,6 @@
 {
-	"title" : "Hello Wolrd2"
+	"title" : "Segundo Post",
+	"author" : "Jefferson"
 }
 ------HEADER-----
 #Hello World

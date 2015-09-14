@@ -1,5 +1,9 @@
 {
-	"title" : "Primeiro Post"
+	"title" : "Primeiro Post",
+	"author" : "Jefferson",
+	"amigo": "Nalbert"
 }
 ------HEADER-----
-#Olá everyone
+
+#Olá meus amigos
+Robson é gay

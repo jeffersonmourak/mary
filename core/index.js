@@ -5,6 +5,29 @@ function Index() {
 
     var self = this;
 
+    function assets() {
+        var dir = 'theme/assets/';
+        var data = {};
+
+        console.log("Reading Assets")
+
+        fs.readdir(dir, function(err, files) {
+            if (err) throw err;
+            var c = 0;
+            files.forEach(function(file) {
+                c++;
+                fs.readFile(dir + file, 'utf-8', function(err, html) {
+                    if (err) throw err;
+                    fs.writeFile("output/assets/" + file, html, function(err) {
+                        if (err) {
+                            return console.log(err);
+                        }
+                    });
+                });
+            });
+        });
+    }
+
     function generateArticles() {
         var articlesCode = "";
         fs.readFile("theme/articles.html", 'utf8', function(err, code) {
@@ -18,7 +41,12 @@ function Index() {
                 var matches = thisArticle.match(/{{\S+}}/g);
                 matches.forEach(function(match) {
                     var objectName = match.replace("{{", "").replace("}}", "");
-                    thisArticle = thisArticle.replace(match, article[objectName]);
+                    if(article[objectName] !== undefined){
+                         thisArticle = thisArticle.replace(match, article[objectName]);
+                    }
+                    else{
+                        thisArticle = thisArticle.replace(match, "");
+                    }
                 });
                 articlesCode += thisArticle;
             }
@@ -29,11 +57,12 @@ function Index() {
 
     }
 
-    function getArticles () {
+    function getArticles() {
         return self.articlesCode;
     }
 
     fs.readFile("theme/index.html", 'utf8', function(err, code) {
+        assets();
         generateArticles();
         if (err) {
             return console.log(err);

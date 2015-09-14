@@ -1,17 +1,24 @@
 (function() {
+    "use strict";
+    var Articles = require('./core/articles');
+    var Index = require('./core/index');
+    var WatchJS = require("watchjs");
+    var watch = WatchJS.watch;
 
-    var fs = require('fs');
-    fs.readFile('atricles/test.md', 'utf8', function(err, article) {
-        if (err) {
-            return console.log(err);
-        }
-        fs.readFile('theme/testTheme.html', 'utf8', function(err, theme) {
-            if (err) {
-                return console.log(err);
-            }
-            var matches = theme.match(/{{\S+}}/g);
-            console.log(matches);
-        });
-    });
+    function Mary() {
+
+    }
+
+  	Mary.prototype = {
+  		articles: Articles.generate,
+  		index: Index.generate,
+  	}
+
+  	var mary = new Mary();
+  	mary.articles();
+  	watch(mary,"articlesDone",function (argument) {
+  		console.log("Generating INDEX");
+  		mary.index();
+  	})
 
 })();

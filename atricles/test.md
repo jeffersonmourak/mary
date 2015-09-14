@@ -1,9 +1,0 @@
-**--
-
-{
-	title: HelloWorld
-}
-
---**
-
-#Hello World

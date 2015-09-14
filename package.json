@@ -1,8 +1,14 @@
 {
   "name": "mary",
   "version": "0.0.1",
-  "description": "The Static HTML Output",
+  "description": "The Static HTML output",
   "main": "mary.js",
+  "dependencies": {
+    "markdown": "^0.5.0",
+    "watchjs": "^0.0.0",
+    "fs": "^0.0.2"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,15 +16,10 @@
     "type": "git",
     "url": "git+https://github.com/jeffersonmourak/mary.git"
   },
-  "author": "jeffersonmourak",
+  "author": "jeffersonmourak <jefinho.moura14@gmail.com> (http://jeffersonmourak.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jeffersonmourak/mary/issues"
   },
-  "homepage": "https://github.com/jeffersonmourak/mary#readme",
-  "dependencies": {
-    "fs": "0.0.2",
-    "markdown": "^0.5.0",
-    "watchjs": "0.0.0"
-  }
+  "homepage": "https://github.com/jeffersonmourak/mary#readme"
 }

@@ -37,7 +37,7 @@ in the theme directory, you will need have this structure
 theme/
 ├── assets/
 │   ├── style.cc
-│	└── ...
+│   └── ...
 │
 ├── article.html  <---- is the template from content of a single article
 ├── articles.html <---- is the template from the list of articles who will appear in index

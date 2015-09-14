@@ -52,10 +52,8 @@ function Articles() {
                     if (err) {
                         return console.log(err);
                     }
-                    self.filenames.push({
-                        "src": filename.replace("md", "html"),
-                        "data" : render
-                    });
+                    render.src = filename.replace("md", "html");
+                    self.filenames.push(render);
                 });
             });
         });

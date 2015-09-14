@@ -1,18 +1,40 @@
 function Index() {
     var fs = require('fs');
+    var WatchJS = require("watchjs");
+    var watch = WatchJS.watch;
+
     var self = this;
 
+    function generateArticles() {
+        var articlesCode = "";
+        fs.readFile("theme/articles.html", 'utf8', function(err, code) {
+            if (err) {
+                return console.log(err);
+            }
+
+            for (var i in self.filenames) {
+                var thisArticle = code;
+                var article = self.filenames[i];
+                var matches = thisArticle.match(/{{\S+}}/g);
+                matches.forEach(function(match) {
+                    var objectName = match.replace("{{", "").replace("}}", "");
+                    thisArticle = thisArticle.replace(match, article[objectName]);
+                });
+                articlesCode += thisArticle;
+            }
+
+            self.articlesCode = articlesCode;
+
+        });
+
+    }
+
     function getArticles () {
-    	var code = "";
-    	//console.log(self.filenames);
-    	for(var i in self.filenames){
-    		var article = self.filenames[i];
-    		code += "<a href=\"" + article.src +"\">" + article.data.title + "</a>\n";
-    	}
-    	return code;
+        return self.articlesCode;
     }
 
     fs.readFile("theme/index.html", 'utf8', function(err, code) {
+        generateArticles();
         if (err) {
             return console.log(err);
         }
@@ -30,11 +52,10 @@ function Index() {
                 var match = matches[i];
                 var objectName = match.replace("{{", "").replace("}}", "");
                 if (data[objectName] !== undefined) {
-                    if(objectName == "articles"){
-                    	code = code.replace(match, getArticles());
-                    }
-                    else{
-                    	code = code.replace(match, data[objectName]);
+                    if (objectName == "articles") {
+                        code = code.replace(match, getArticles());
+                    } else {
+                        code = code.replace(match, data[objectName]);
                     }
                 }
 

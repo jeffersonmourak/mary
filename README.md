@@ -36,7 +36,7 @@ in the theme directory, you will need have this structure
 ```
 theme/
 ├── assets/
-│   ├── style.cc
+│   ├── style.css
 │   └── ...
 │
 ├── article.html  <---- is the template from content of a single article

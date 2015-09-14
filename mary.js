@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 (function() {
     "use strict";
     var Articles = require('./core/articles');

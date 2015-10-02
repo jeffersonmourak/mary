@@ -15,7 +15,19 @@
     </header>
     <div class="grid">
         <section class="first-element articles col-2-3">
-        	{{articles}}
+            {%article%}
+            <article>
+                <div class="author">
+                    <strong>Author: </strong> {{author}}
+                </div>
+                <div class="content">
+                    <h2><a href=" {{src}} ">{{title}}</a></h2>
+                    <div class="text">
+                        {{content}}
+                    </div>
+                </div>
+            </article>
+            {%article%}
         </section>
         <section class="first-element about col-1-3">
             <aside>

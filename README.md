@@ -1,5 +1,7 @@
 # Mary
 
+![Mary WrestleMania Spuckler - The Simpsons](http://vignette4.wikia.nocookie.net/simpsons/images/7/72/Mary_Spuckler_%28Official_Image%29.PNG/revision/latest/scale-to-width-down/180?cb=20120716233247 "Mary WrestleMania Spuckler - The Simpsons")
+
 ## What's Mary ?
 Mary is a static HTML file output from a markdown file
 
@@ -40,7 +42,6 @@ theme/
 │   └── ...
 │
 ├── article.html  <---- is the template from content of a single article
-├── articles.html <---- is the template from the list of articles who will appear in index
 ├── index.html    <---- is the template from the index page.
 └── infos.json    <---- is the informations of blog who will appear in index
 ```
@@ -83,11 +84,33 @@ and this will be outputed like this
 
 ```
 
+to show in index the list of articles you just need put
+``` {%article%} ``` at begin of article section, and the same text in the end.
+like this
+
+```
+	{%article%}
+	    <article>
+	        <div class="author">
+	            <strong>Author: </strong> {{author}}
+	        </div>
+	        <div class="content">
+	            <h2><a href=" {{src}} ">{{title}}</a></h2>
+	            <div class="text">
+	                {{content}}
+	            </div>
+	        </div>
+	    </article>
+	{%article%}
+
+```
+
+all the HTML inside this will be repeated while have articles to put on index.
+
 ### Somethings that you need attention
 some names are privates from the Mary,
 
 this names are
-- articles
 - content
 
 #### What does that mean ?

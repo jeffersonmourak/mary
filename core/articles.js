@@ -41,7 +41,7 @@ function Articles() {
                 if (err) {
                     return console.log(err);
                 }
-                var matches = theme.match(/{{\S+}}/g);
+                var matches = theme.match();
                 matches.forEach(function(match) {
                     var decorator = match;
                     match = match.replace("{{", "").replace("}}", "");

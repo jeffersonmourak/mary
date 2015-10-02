@@ -11,12 +11,12 @@ function Index() {
 
         console.log("Reading Assets")
 
-        fs.readdir(dir, function(err, files) {
+        fs.readdirSync(dir, function(err, files) {
             if (err) throw err;
             var c = 0;
             files.forEach(function(file) {
                 c++;
-                fs.readFile(dir + file, 'utf-8', function(err, html) {
+                fs.readFileSync(dir + file, 'utf-8', function(err, html) {
                     if (err) throw err;
                     fs.writeFile("output/assets/" + file, html, function(err) {
                         if (err) {

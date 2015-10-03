@@ -22,7 +22,6 @@
     Theme.prototype = {
         init: function() {
             this.article = fs.readFileSync(__dirname + "/theme/article.html", 'utf-8');
-            this.articles = fs.readFileSync(__dirname + "/theme/articles.html", 'utf-8');
             this.index = fs.readFileSync(__dirname + "/theme/index.html", 'utf-8');
             this.information = JSON.parse(fs.readFileSync(__dirname + "/theme/infos.json", 'utf-8'));
         }
@@ -110,7 +109,7 @@
         var articleTexts = _getFiles(__dirname + "/articles");
         console.log("Generating Articles");
         for (var i in articleTexts) {
-            console.log((i + 1) + " of " + articleTexts.length);
+            console.log((parseInt(i) + 1) + " of " + articleTexts.length);
             var articleText = articleTexts[i];
             var fileName = articleText.replace(__dirname + "/articles/", "").replace("md", "html");
             var data = articleHeaderExtractor(articleText);

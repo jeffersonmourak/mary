@@ -3,6 +3,7 @@
     "use strict";
 
     function HTMLInjector(text, data) {
+        
         var variableRegx = /{{(\S+| \S+ |\S+ | \S+)}}/g;
         var variables = text.match(variableRegx);
 

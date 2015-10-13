@@ -1,0 +1,11 @@
+[
+	{
+	    "name": "output",
+	    "shortcut": "o",
+	    "requestValue": true
+	},{
+	    "name": "theme",
+	    "shortcut": "t",
+	    "requestValue": true
+	}
+]

@@ -1,73 +1,46 @@
-function Articles() {
-    console.log("Creating the articles");
-    var fs = require('fs');
-    var markdown = require("markdown").markdown;
-    var WatchJS = require("watchjs");
-    var watch = WatchJS.watch;
+(function() {
 
-    var self = this;
-    self.filenames = [];
+    "use strict";
 
-    function getFiles(dir, files_) {
-        files_ = files_ || [];
-        var files = fs.readdirSync(dir);
-        for (var i in files) {
-            var name = dir + '/' + files[i];
-            if (fs.statSync(name).isDirectory()) {
-                getFiles(name, files_);
-            } else {
-                files_.push(name);
-            }
+    GLOBAL.fs = require('fs');
+
+    var HTMLInjector = require("./HTMLInjector"),
+        markdown = require("markdown").markdown,
+        _getFiles = require("./getFiles");
+
+    function articleHeaderExtractor(file, theme) {
+        var fileContent = fs.readFileSync(file, 'utf-8');
+        var articleHeader = fileContent.match(/---\S+---/g);
+        var data = false;
+        var variableRegx = /{{\S+}}/g;
+
+        if (articleHeader.length > 0) {
+            var sectionPosition = fileContent.search(articleHeader[0]);
+            data = JSON.parse(fileContent.substring(0, sectionPosition));
+            data.content = markdown.toHTML(fileContent.substring(sectionPosition + articleHeader[0].length));
         }
-        return files_;
+
+        data.html = HTMLInjector(theme.article, data);
+        return data;
     }
 
-    var articles = getFiles("articles");
-    self.TextArticles = articles;
-
-    articles.forEach(function(filename) {
-        fs.readFile(filename, 'utf8', function(err, article) {
-            if (err) {
-                return console.log(err);
-            }
-
-            var headerSection = article.match(/---\S+---/g)[0];
-            var sectionPosition = article.search(headerSection);
-            var data = JSON.parse(article.substring(0, sectionPosition));
-            var render = data;
-            data.content = markdown.toHTML(article.substring(sectionPosition + headerSection.length));
-
-            fs.readFile('theme/article.html', 'utf8', function(err, theme) {
-                if (err) {
-                    return console.log(err);
-                }
-                var matches = theme.match();
-                matches.forEach(function(match) {
-                    var decorator = match;
-                    match = match.replace("{{", "").replace("}}", "");
-                    theme = theme.replace(decorator, data[match]);
-                });
-
-                fs.writeFile(filename.replace("articles", "output/articles").replace("md", "html"), theme, function(err) {
-                    if (err) {
-                        return console.log(err);
-                    }
-                    render.src = filename.replace("md", "html");
-                    self.filenames.push(render);
-                });
-            });
-        });
-    });
-
-    watch(self, "filenames", function() {
-        if (self.filenames.length == self.TextArticles.length) {
-            self.articlesDone = true;
+    function articlesGenerator(path, theme) {
+        var articleTexts = _getFiles(path + "/articles");
+        console.log("Generating Articles");
+        for (var i in articleTexts) {
+            console.log((parseInt(i) + 1) + " of " + articleTexts.length);
+            var articleText = articleTexts[i];
+            var fileName = articleText.replace(path + "/articles/", "").replace("md", "html");
+            var data = articleHeaderExtractor(articleText, theme);
+            fs.writeFileSync(path + "/output/articles/" + fileName, data.html);
+            data.src = "/articles/" + fileName.replace(path, "");
+            this.articlesRoutes.push(data);
         }
-    });
+
+    }
 
 
-}
+    module.exports = articlesGenerator;
 
-module.exports = {
-    generate: Articles,
-}
+
+})();

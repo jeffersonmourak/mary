@@ -155,7 +155,7 @@ look this example
 
 ```
 
-#RUN
+##RUN
 
 to run Mary, you can specify where is the theme and the output path to your blog.
 * using ``` -t path/of/theme ``` or ``` --theme path/of/theme``` the Mary will get the theme files inside the path and generate the HTML

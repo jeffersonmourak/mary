@@ -155,4 +155,11 @@ look this example
 
 ```
 
-Licence: MIT
+#RUN
+
+to run Mary, you can specify where is the theme and the output path to your blog.
+* using ``` -t path/of/theme ``` or ``` --theme path/of/theme``` the Mary will get the theme files inside the path and generate the HTML
+* using ``` -o path/of/output ``` or ``` --output path/of/output``` the Mary will generate the HTML on this path
+
+###Licence
+* MIT

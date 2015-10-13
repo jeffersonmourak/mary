@@ -1,5 +1,6 @@
 (function() {
     "use strict";
+    var fs = require('fs');
     function getFiles(dir, files_) {
         files_ = files_ || [];
         var files = fs.readdirSync(dir);

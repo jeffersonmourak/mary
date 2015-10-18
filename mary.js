@@ -24,8 +24,7 @@
     // Node Modules
 
     var fs = require('fs'),
-        mkdirp = require('mkdirp'),
-        markdown = require("markdown").markdown;
+        mkdirp = require('mkdirp');
 
     //argument strings 
     
@@ -38,8 +37,7 @@
     var themePath = process.cwd() + "/theme";
     
     //path changer
-
-    if (argumentQuery.output !== false) {
+    if (argumentQuery.output !== false && argumentQuery.output !== undefined) {
         if (argumentQuery.output[1] != "/") {
             path = process.cwd() + "/" + argumentQuery.output;
             path = path.PathNormalize();
@@ -47,7 +45,7 @@
             path = argumentQuery.output;
         }
     }
-    if (argumentQuery.theme !== false) {
+    if (argumentQuery.theme !== false && argumentQuery.theme !== undefined) {
         if (argumentQuery.theme[1] != "/") {
             themePath = process.cwd() + "/" + argumentQuery.theme;
             themePath = themePath.PathNormalize();

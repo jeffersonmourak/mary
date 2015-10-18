@@ -5,8 +5,10 @@
     GLOBAL.fs = require('fs');
 
     var HTMLInjector = require("./HTMLInjector"),
-        markdown = require("markdown").markdown,
         _getFiles = require("./getFiles");
+
+    var showdown  = require('showdown'),
+        converter = new showdown.Converter();
 
     function articleHeaderExtractor(file, theme) {
         var fileContent = fs.readFileSync(file, 'utf-8');
@@ -17,7 +19,7 @@
         if (articleHeader.length > 0) {
             var sectionPosition = fileContent.search(articleHeader[0]);
             data = JSON.parse(fileContent.substring(0, sectionPosition));
-            data.content = markdown.toHTML(fileContent.substring(sectionPosition + articleHeader[0].length));
+            data.content = converter.makeHtml(fileContent.substring(sectionPosition + articleHeader[0].length));
         }
 
         data.html = HTMLInjector(theme.article, data);
